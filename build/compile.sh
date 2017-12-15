@@ -1,0 +1,1 @@
+g++ ../src/common/main.cpp ../src/item/item.cpp ../src/item/item19/temporary_obj.cpp -std=c++11
