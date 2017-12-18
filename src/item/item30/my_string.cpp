@@ -1,53 +1,90 @@
 #include "my_string.h"
 #include <cstring>
 
+// ===================== class CStringValue ===============================
+CStringValue::CStringValue(const char* initValue)
+: ref_count(1)
+, data(nullptr)
+{
+    copy_a_string(initValue);
+}
+
+CStringValue::~CStringValue()
+{
+    delete_a_string();
+}
+
+void* CStringValue::data_address()
+{
+    return static_cast<void*>(data);
+}
+
+void CStringValue::copy_a_string(const char* lhs)
+{
+    int ilen = strlen(lhs);
+    data = new char[ilen + 1];
+    data = strcpy(data, lhs);
+}
+
+void CStringValue::delete_a_string()
+{
+    if (data)
+    {
+        delete [] data;
+        data = 0;
+    }
+}
+// ===================== class CStringValue ===============================
+
+// ===================== class CMyString ===============================
 // Be careful at the initialize list
 CMyString::CMyString(const char* value)
-: data(nullptr)
+: m_string_value(new CStringValue(value))
 {
-    // std::cout << "Debug : constructor" << std::endl;
-    copy_a_string(value);
+    
 }
 
 // Be careful at the initialize list
 CMyString::CMyString(const CMyString& rhs)
-: data(nullptr)
+: m_string_value(nullptr)
 {
-    // std::cout << "Debug : Delete local string." << std::endl;
-    delete_a_string();
-    // std::cout << "Debug : copy string from rhs" << std::endl;
-    copy_a_string(rhs.data);
+   m_string_value = rhs.m_string_value;
+   ++m_string_value->ref_count; 
 }
 
 CMyString& CMyString::operator=(const CMyString& rhs)
 {
-    // std::cout << "Debug : Delete local string." << std::endl;
-    delete_a_string();
-    // std::cout << "Debug : copy string from rhs" << std::endl;
-    copy_a_string(rhs.data);
+    delete_local_string();
+    m_string_value = rhs.m_string_value;
+    ++m_string_value->ref_count;
+
+    return *this;
 }
 
-void CMyString::write_data_address () const
+CMyString::~CMyString()
 {
-    std::cout << static_cast<void*>(data) << std::endl;
+    delete_local_string();
 }
 
-void CMyString::copy_a_string(const char* lhs)
+void CMyString::string_value_address () const
 {
-    int ilen = strlen(lhs);
-    // std::cout << "Debug : copy_a_string len is " << ilen << std::endl;
-    data = new char[ilen + 1];
-    data = strcpy(data, lhs);
-    // std::cout << "Debug : copy_a_string str content is " << data << std::endl;
-}
-
-void CMyString::delete_a_string()
-{
-    if (data)
+    if (m_string_value)
     {
-        // std::cout << "Debug :: Begin delete local string" << std::endl;
-        delete [] data;
-        // std::cout << "Debug :: End delete local string" << std::endl;
-        data = 0;
+        std::cout << "StringValue's data's address is " << m_string_value->data_address() << std::endl;
+    }
+    else
+    {
+        std::cout << "StringValue's pointer is null" << std::endl;
     }
 }
+
+void CMyString::delete_local_string ()
+{
+    if (--m_string_value->ref_count == 0)
+    {
+        delete m_string_value;
+        m_string_value = nullptr;
+    }
+}
+
+// ===================== class CMyString ===============================
