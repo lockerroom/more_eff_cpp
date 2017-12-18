@@ -1,5 +1,6 @@
 #include "item.h"
 #include "item19/temporary_obj.h"
+#include "item30/my_string.h"
 
 void CItem::test_item_9()
 {
@@ -50,4 +51,16 @@ void CItem::test_item_24()
     // Fun pFun1 = (Fun)*((int*)*(int*)(&obj1) + 1);
     // pFun1();
     std::cout << (int)(*(int*)&obj2) << std::endl;
+}
+
+void CItem::test_item_30()
+{
+    // version 1
+    CMyString myStr1("Hello world");
+    CMyString myStr2(myStr1);
+    CMyString myStr3(myStr1);
+
+    myStr1.write_data_address();
+    myStr2.write_data_address();
+    myStr3.write_data_address();
 }

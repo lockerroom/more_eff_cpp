@@ -10,6 +10,8 @@ public:
     void test_item_19();
     void test_item_20();
     void test_item_24();
+
+    void test_item_30();
 };
 
 #endif

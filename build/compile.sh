@@ -1,1 +1,1 @@
-g++ ../src/common/main.cpp ../src/item/item.cpp ../src/item/item19/temporary_obj.cpp -std=c++11
+g++ ../src/common/main.cpp ../src/item/item.cpp ../src/item/item19/temporary_obj.cpp ../src/item/item30/my_string.cpp -std=c++11
