@@ -54,6 +54,9 @@ CMyString::CMyString(const CMyString& rhs)
 
 CMyString& CMyString::operator=(const CMyString& rhs)
 {
+    if (rhs.m_string_value == this->m_string_value)
+        return *this;
+
     delete_local_string();
     m_string_value = rhs.m_string_value;
     ++m_string_value->ref_count;
@@ -66,11 +69,31 @@ CMyString::~CMyString()
     delete_local_string();
 }
 
-void CMyString::string_value_address () const
+const char& CMyString::operator[] (int index) const
+{
+    return m_string_value->data[index];
+}
+
+char& CMyString::operator[] (int index)
+{
+    if (m_string_value->ref_count > 1)
+    {
+        --m_string_value->ref_count;
+        m_string_value = new CStringValue(m_string_value->data);
+    }
+
+    return m_string_value->data[index];
+}
+
+void CMyString::string_value () const
 {
     if (m_string_value)
     {
-        std::cout << "StringValue's data's address is " << m_string_value->data_address() << std::endl;
+        std::cout << "StringValue's data's address is " 
+                  << m_string_value->data_address() 
+                  << "StringValue's reference number is "
+                  << m_string_value->ref_count
+                  << std::endl;
     }
     else
     {

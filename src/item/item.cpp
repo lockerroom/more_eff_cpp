@@ -60,7 +60,13 @@ void CItem::test_item_30()
     CMyString myStr2(myStr1);
     CMyString myStr3(myStr1);
 
-    myStr1.string_value_address();
-    myStr2.string_value_address();
-    myStr3.string_value_address();
+    myStr1.string_value();
+    myStr2.string_value();
+    myStr3.string_value();
+
+    myStr1[0] = 'h';
+
+    myStr1.string_value();
+    myStr2.string_value();
+    myStr3.string_value();
 }

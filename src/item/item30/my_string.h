@@ -29,7 +29,10 @@ public:
     CMyString& operator=(const CMyString&);
     ~CMyString();
 
-    void string_value_address() const;
+    const char& operator[](int) const;
+    char& operator[](int);
+
+    void string_value() const;
 
 private:
     void delete_local_string();
