@@ -64,7 +64,8 @@ void CItem::test_item_30()
     myStr2.string_value();
     myStr3.string_value();
 
-    myStr1[0] = 'h';
+    char& p = myStr1[0];
+    p = 'A';
 
     myStr1.string_value();
     myStr2.string_value();

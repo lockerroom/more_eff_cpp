@@ -89,11 +89,9 @@ void CMyString::string_value () const
 {
     if (m_string_value)
     {
-        std::cout << "StringValue's data's address is " 
-                  << m_string_value->data_address() 
-                  << "StringValue's reference number is "
-                  << m_string_value->ref_count
-                  << std::endl;
+        std::cout << "StringValue's data's address is " << m_string_value->data_address() << " ; "
+                  << "StringValue's data is " << m_string_value->data << " ; "
+                  << "StringValue's reference number is " << m_string_value->ref_count << std::endl;
     }
     else
     {
