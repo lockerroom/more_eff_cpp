@@ -5,11 +5,13 @@
 
 #include "../../common/common.h"
 #include "rcobject.h"
+#include "crc_ptr.h"
 
 class CStringValue : public CRCObject
 {
 public:
     CStringValue(const char*);
+    CStringValue(const CStringValue&);
     ~CStringValue();
 
 public:
@@ -42,7 +44,7 @@ private:
     void delete_local_string();
 
 private:
-    CStringValue* m_string_value;
+    CRCPtr<CStringValue> m_string_value;
 };
 
 

@@ -10,6 +10,12 @@ CStringValue::CStringValue(const char* initValue)
     copy_a_string(initValue);
 }
 
+CStringValue::CStringValue(const CStringValue& rhs)
+: data(nullptr)
+{
+    copy_a_string(rhs.data);
+}
+
 CStringValue::~CStringValue()
 {
     delete_a_string();
@@ -47,28 +53,14 @@ CMyString::CMyString(const char* value)
 
 // Be careful at the initialize list
 CMyString::CMyString(const CMyString& rhs)
-: m_string_value(nullptr)
+: m_string_value(rhs.m_string_value)
 {
-   if (rhs.m_string_value->isShareable())
-   {
-       m_string_value = rhs.m_string_value;
-       m_string_value->addReference(); 
-   }
-   else 
-   {
-       m_string_value = new CStringValue(rhs.m_string_value->data);
-   }
+
 }
 
 CMyString& CMyString::operator=(const CMyString& rhs)
 {
-    if (rhs.m_string_value == this->m_string_value)
-        return *this;
-
-    delete_local_string();
     m_string_value = rhs.m_string_value;
-    m_string_value->addReference();
-
     return *this;
 }
 
@@ -96,23 +88,17 @@ char& CMyString::operator[] (int index)
 
 void CMyString::string_value () const
 {
-    if (m_string_value)
-    {
-        std::cout << "StringValue's data's address is " << m_string_value->data_address() << " ; "
+    std::cout << "StringValue's data's address is " << m_string_value->data_address() << " ; "
                   << "StringValue's data is " << m_string_value->data << " ; "
                   // << "StringValue's reference number is " << m_string_value->ref_count 
                   << std::endl;
-    }
-    else
-    {
-        std::cout << "StringValue's pointer is null" << std::endl;
-    }
 }
 
 void CMyString::delete_local_string ()
 {
-    m_string_value->removeReference();
-    m_string_value = nullptr;
+    // This function is useless because of useing smart pointer
+    // m_string_value->removeReference();
+    // m_string_value = nullptr;
 }
 
 // ===================== class CMyString ===============================
