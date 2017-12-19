@@ -4,8 +4,9 @@
 #define MY_STRING_H_
 
 #include "../../common/common.h"
+#include "rcobject.h"
 
-class CStringValue
+class CStringValue : public CRCObject
 {
 public:
     CStringValue(const char*);
@@ -19,9 +20,9 @@ private:
     void delete_a_string();
 
 public:
-    int ref_count;
+    // int ref_count;
     char* data;
-    bool shareable;
+    // bool shareable;
 };
 
 class CMyString

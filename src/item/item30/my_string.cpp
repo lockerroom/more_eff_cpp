@@ -3,9 +3,9 @@
 
 // ===================== class CStringValue ===============================
 CStringValue::CStringValue(const char* initValue)
-: ref_count(1)
-, data(nullptr)
-, shareable(true)
+: data(nullptr)
+// , ref_count(1)
+// , shareable(true)
 {
     copy_a_string(initValue);
 }
@@ -49,10 +49,10 @@ CMyString::CMyString(const char* value)
 CMyString::CMyString(const CMyString& rhs)
 : m_string_value(nullptr)
 {
-   if (rhs.m_string_value->shareable)
+   if (rhs.m_string_value->isShareable())
    {
        m_string_value = rhs.m_string_value;
-       ++m_string_value->ref_count; 
+       m_string_value->addReference(); 
    }
    else 
    {
@@ -67,7 +67,7 @@ CMyString& CMyString::operator=(const CMyString& rhs)
 
     delete_local_string();
     m_string_value = rhs.m_string_value;
-    ++m_string_value->ref_count;
+    m_string_value->addReference();
 
     return *this;
 }
@@ -84,13 +84,13 @@ const char& CMyString::operator[] (int index) const
 
 char& CMyString::operator[] (int index)
 {
-    if (m_string_value->ref_count > 1)
+    if (m_string_value->isShared())
     {
-        --m_string_value->ref_count;
+        m_string_value->removeReference();
         m_string_value = new CStringValue(m_string_value->data);
     }
 
-    m_string_value->shareable = false;
+    m_string_value->makeUnshareable();
     return m_string_value->data[index];
 }
 
@@ -100,7 +100,8 @@ void CMyString::string_value () const
     {
         std::cout << "StringValue's data's address is " << m_string_value->data_address() << " ; "
                   << "StringValue's data is " << m_string_value->data << " ; "
-                  << "StringValue's reference number is " << m_string_value->ref_count << std::endl;
+                  // << "StringValue's reference number is " << m_string_value->ref_count 
+                  << std::endl;
     }
     else
     {
@@ -110,11 +111,8 @@ void CMyString::string_value () const
 
 void CMyString::delete_local_string ()
 {
-    if (--m_string_value->ref_count == 0)
-    {
-        delete m_string_value;
-        m_string_value = nullptr;
-    }
+    m_string_value->removeReference();
+    m_string_value = nullptr;
 }
 
 // ===================== class CMyString ===============================
