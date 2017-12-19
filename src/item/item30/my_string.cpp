@@ -52,6 +52,7 @@ CMyString::CMyString(const char* value)
 }
 
 // Be careful at the initialize list
+/*
 CMyString::CMyString(const CMyString& rhs)
 : m_string_value(rhs.m_string_value)
 {
@@ -68,6 +69,7 @@ CMyString::~CMyString()
 {
     delete_local_string();
 }
+*/
 
 const char& CMyString::operator[] (int index) const
 {

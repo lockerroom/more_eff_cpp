@@ -5,13 +5,14 @@
 
 class CRCObject
 {
-public:
+protected:
     CRCObject();
     CRCObject(const CRCObject&);
     virtual ~CRCObject() = 0;
 
     CRCObject& operator=(const CRCObject&);
 
+public:
     void addReference();
     void removeReference();
     void makeUnshareable();

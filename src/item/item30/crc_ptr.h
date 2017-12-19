@@ -38,8 +38,11 @@ CRCPtr<T>::CRCPtr(const CRCPtr& rhs)
 template <typename T>
 CRCPtr<T>::~CRCPtr()
 {
-    pointee->removeReference();
-    pointee = nullptr;
+    if (pointee)
+    {
+        pointee->removeReference();
+        pointee = nullptr;
+    }
 }
 
 template <typename T>

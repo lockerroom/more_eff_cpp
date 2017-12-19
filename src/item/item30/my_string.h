@@ -31,9 +31,9 @@ class CMyString
 {
 public:
     CMyString(const char* value = "");
-    CMyString(const CMyString&);
-    CMyString& operator=(const CMyString&);
-    ~CMyString();
+    // CMyString(const CMyString&);
+    // CMyString& operator=(const CMyString&);
+    // ~CMyString();
 
     const char& operator[](int) const;
     char& operator[](int);
