@@ -1,3 +1,5 @@
+// my_string.h
+
 #ifndef MY_STRING_H_
 #define MY_STRING_H_
 
@@ -19,6 +21,7 @@ private:
 public:
     int ref_count;
     char* data;
+    bool shareable;
 };
 
 class CMyString

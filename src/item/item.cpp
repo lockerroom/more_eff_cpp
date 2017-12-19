@@ -60,14 +60,16 @@ void CItem::test_item_30()
     CMyString myStr2(myStr1);
     CMyString myStr3(myStr1);
 
-    myStr1.string_value();
-    myStr2.string_value();
-    myStr3.string_value();
+    // myStr1.string_value();
+    // myStr2.string_value();
+    // myStr3.string_value();
 
-    char& p = myStr1[0];
-    p = 'A';
-
+    char* p = &myStr1[0];
+    CMyString myStr4(myStr1);
     myStr1.string_value();
-    myStr2.string_value();
-    myStr3.string_value();
+    myStr4.string_value();
+
+    *p = 'M';
+    myStr1.string_value();
+    myStr4.string_value();
 }

@@ -5,6 +5,7 @@
 CStringValue::CStringValue(const char* initValue)
 : ref_count(1)
 , data(nullptr)
+, shareable(true)
 {
     copy_a_string(initValue);
 }
@@ -48,8 +49,15 @@ CMyString::CMyString(const char* value)
 CMyString::CMyString(const CMyString& rhs)
 : m_string_value(nullptr)
 {
-   m_string_value = rhs.m_string_value;
-   ++m_string_value->ref_count; 
+   if (rhs.m_string_value->shareable)
+   {
+       m_string_value = rhs.m_string_value;
+       ++m_string_value->ref_count; 
+   }
+   else 
+   {
+       m_string_value = new CStringValue(rhs.m_string_value->data);
+   }
 }
 
 CMyString& CMyString::operator=(const CMyString& rhs)
@@ -82,6 +90,7 @@ char& CMyString::operator[] (int index)
         m_string_value = new CStringValue(m_string_value->data);
     }
 
+    m_string_value->shareable = false;
     return m_string_value->data[index];
 }
 
