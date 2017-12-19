@@ -16,7 +16,7 @@ CRCObject::CRCObject(const CRCObject& rhs)
 
 CRCObject::~CRCObject()
 {
-
+    
 }
 
 CRCObject& CRCObject::operator=(const CRCObject& rhs)
