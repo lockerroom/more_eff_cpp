@@ -2,6 +2,7 @@
 #define RCI_PTR_H_
 
 #include "../../common/common.h"
+#include "rcobject.h"
 
 template <typename T>
 class CRIPtr 
@@ -13,7 +14,7 @@ public:
 
     CRIPtr& operator=(const CRIPtr&);
     const T* operator->() const;
-    T* operator->() const;
+    T* operator->();
     const T& operator*() const;
     T& operator*();
 
@@ -36,17 +37,17 @@ private:
         }
 
         T* pointee;
-    }
+    };
 
     CountHolder* m_count_holder;
 
     void init();
-    void make_a_copy();
+    void lazy_copy();
 };
 
 template <typename T>
 CRIPtr<T>::CRIPtr(T* realPtr)
-: m_count_holder(new CountHolder)
+: m_count_holder(new CountHolder())
 {
     m_count_holder->pointee = realPtr;
     init();
@@ -69,7 +70,9 @@ CRIPtr<T>::~CRIPtr()
 template <typename T>
 CRIPtr<T>& CRIPtr<T>::operator=(const CRIPtr& rhs)
 {
+    m_count_holder->removeReference();
     m_count_holder = rhs.m_count_holder;
+    init();
     return *this;
 }
 
@@ -80,19 +83,19 @@ const T* CRIPtr<T>::operator->() const
 }
 
 template <typename T>
-T* CRIPtr<T>::operatpr->()
+T* CRIPtr<T>::operator->()
 {
     return m_count_holder->pointee;
 }
 
 template <typename T>
-const T& CRIPtr<T>::operator->() const
+const T& CRIPtr<T>::operator*() const
 {
     return *(m_count_holder->pointee);
 }
 
 template <typename T>
-T& CRIPtr<T>::operatpr->()
+T& CRIPtr<T>::operator*()
 {
     return *(m_count_holder->pointee);
 }
@@ -104,16 +107,23 @@ void CRIPtr<T>::init()
     {
         T* oldT = m_count_holder->pointee;
         m_count_holder = new CountHolder();
-        m_count_holder->pointee = oldT;
+        m_count_holder->pointee = new T(*oldT);
     }
 
     m_count_holder->addReference();
 }
 
 template <typename T>
-void CRIPtr<T>::make_a_copy()
+void CRIPtr<T>::lazy_copy()
 {
-
+    if (m_count_holder->isShared())
+    {
+        T* oldPtr = m_count_holder->pointee;
+        m_count_holder->removeReference();
+        m_count_holder = new CountHolder();
+        m_count_holder->pointee = new T(*oldPtr);
+        m_count_holder->addReference();
+    }
 }
 
 #endif

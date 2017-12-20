@@ -1,6 +1,7 @@
 #include "item.h"
 #include "item19/temporary_obj.h"
 #include "item30/my_string.h"
+#include "item30/rc_widget.h"
 
 void CItem::test_item_9()
 {
@@ -55,6 +56,7 @@ void CItem::test_item_24()
 
 void CItem::test_item_30()
 {
+    /*
     // version 1
     CMyString myStr1("Hello world");
     CMyString myStr2(myStr1);
@@ -64,6 +66,7 @@ void CItem::test_item_30()
     myStr2.string_value();
     myStr3.string_value();
 
+    // version 2
     char* p = &myStr1[0];
     CMyString myStr4(myStr1);
     myStr1.string_value();
@@ -72,4 +75,11 @@ void CItem::test_item_30()
     *p = 'M';
     myStr1.string_value();
     myStr4.string_value();
+    */
+
+    CRCWidget widget1(1);
+    CRCWidget widget2(widget1);
+
+    widget1.doThis();
+    widget2.doThis();
 }

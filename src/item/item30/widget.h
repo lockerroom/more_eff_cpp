@@ -14,6 +14,9 @@ public:
     
     void doThis();
     int showWhat() const;
+
+private:
+    int m_size;
 };
 
 #endif

@@ -11,10 +11,18 @@
 #define RC_WIDGET_H_
 
 #include "../../common/common.h"
+#include "rci_ptr.h"
+#include "widget.h"
 
 class CRCWidget
 {
+public:
+    CRCWidget(int);
+    void doThis();
+    int showWhat() const;
 
+private:
+    CRIPtr<CWidget> value;
 };
 
 #endif
