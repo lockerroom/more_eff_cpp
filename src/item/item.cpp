@@ -1,7 +1,9 @@
 #include "item.h"
 #include "item19/temporary_obj.h"
-#include "item30/my_string.h"
-#include "item30/rc_widget.h"
+// #include "item30/my_string.h"
+// #include "item30/rc_widget.h"
+#include "item30/demo/ty_string.h"
+
 
 void CItem::test_item_9()
 {
@@ -77,9 +79,12 @@ void CItem::test_item_30()
     myStr4.string_value();
     */
 
-    CRCWidget widget1(1);
-    CRCWidget widget2(widget1);
+    // CRCWidget widget1(1);
+    // CRCWidget widget2(widget1);
 
-    widget1.doThis();
-    widget2.doThis();
+    // widget1.doThis();
+    // widget2.doThis();
+
+    CTYString cty_str("Hello");
+    CTYString cty_str2(cty_str);
 }
