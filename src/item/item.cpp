@@ -2,7 +2,8 @@
 #include "item19/temporary_obj.h"
 // #include "item30/my_string.h"
 // #include "item30/rc_widget.h"
-#include "item30/demo/ty_string.h"
+
+#include "item30/demo/cstring.h"
 
 
 void CItem::test_item_9()
@@ -85,6 +86,11 @@ void CItem::test_item_30()
     // widget1.doThis();
     // widget2.doThis();
 
-    CTYString cty_str("Hello");
-    CTYString cty_str2(cty_str);
+    CString str1("Hello world");
+    CString str2(str1);
+    CString str3(str2);
+
+    str1.write_local_pointer();
+    str2.write_local_pointer();
+    str3.write_local_pointer();
 }
