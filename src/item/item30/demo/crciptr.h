@@ -34,8 +34,8 @@ CRCIPtr<T>::CRCIPtr(T* real_ptr)
 
 template <typename T>
 CRCIPtr<T>::CRCIPtr(const CRCIPtr& rhs)
-: m_value(rhs.m_value)
 {
+    m_value = rhs.m_value;
     init();
 }
 
@@ -63,6 +63,7 @@ const T* CRCIPtr<T>::operator->() const
 template <typename T>
 T* CRCIPtr<T>::operator->()
 {
+    // std::cout << "operator ->" << std::endl;
     lazy_copy();
     return m_value;
 }
@@ -76,6 +77,7 @@ const T& CRCIPtr<T>::operator*() const
 template <typename T>
 T& CRCIPtr<T>::operator*()
 {
+    // std::cout << "operator *" << std::endl;
     lazy_copy();
     return *m_value;
 }
@@ -83,7 +85,7 @@ T& CRCIPtr<T>::operator*()
 template <typename T>
 void CRCIPtr<T>::init()
 {
-    if (!m_value->is_shareable())
+    if (!(m_value->is_shareable()))
     {
         m_value = new T(*m_value);
     }
@@ -94,6 +96,7 @@ void CRCIPtr<T>::init()
 template <typename T>
 void CRCIPtr<T>::lazy_copy()
 {
+    // std::cout << "Debug : lazy_copy" << std::endl;
     if (m_value->is_shared())
     {
         m_value->delete_reference();

@@ -3,7 +3,7 @@
 CString::CString(const char* real_ptr)
 : m_value(new CStringValue(real_ptr))
 {
-    std::cout << "Debug : CString::CString real_ptr is " << real_ptr << std::endl;
+    // std::cout << "Debug : CString::CString real_ptr is " << real_ptr << std::endl;
 }
 
 const char& CString::operator[](int index) const
@@ -25,6 +25,7 @@ char& CString::operator[](int index)
 
 void CString::write_local_pointer()
 {
+    // There makes lazy_copy
     void* addr_local_data = static_cast<void*>(m_value->get_data());
     std::cout << "Local object's data's address is " << addr_local_data
                   << std::endl

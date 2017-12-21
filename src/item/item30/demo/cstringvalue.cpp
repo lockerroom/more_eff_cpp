@@ -5,7 +5,6 @@
 CStringValue::CStringValue(const char* real_ptr)
 : m_data(nullptr)
 {
-    std::cout << "Debug : CStringValue::CStringValue real_ptr is " << real_ptr << std::endl;
     copy_a_string(real_ptr);
 }
 
