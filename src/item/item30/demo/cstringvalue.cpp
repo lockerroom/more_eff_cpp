@@ -5,6 +5,7 @@
 CStringValue::CStringValue(const char* real_ptr)
 : m_data(nullptr)
 {
+    std::cout << "Debug : CStringValue::CStringValue real_ptr is " << real_ptr << std::endl;
     copy_a_string(real_ptr);
 }
 
@@ -38,8 +39,10 @@ char* CStringValue::get_data()
 
 void CStringValue::copy_a_string(const char* real_ptr)
 {
-    m_data = new char[strlen(real_ptr) + 1];
-    strcpy(m_data, real_ptr);
+    int ilen = strlen(real_ptr);
+    m_data = new char[ilen + 1];
+    // std::cout << "Debug : copy_a_string real_ptr length is " << real_ptr  << " " << ilen << std::endl;
+    m_data = strcpy(m_data, real_ptr);
 }
 
 void CStringValue::delete_local_string()

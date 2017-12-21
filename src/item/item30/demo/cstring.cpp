@@ -3,7 +3,7 @@
 CString::CString(const char* real_ptr)
 : m_value(new CStringValue(real_ptr))
 {
-
+    std::cout << "Debug : CString::CString real_ptr is " << real_ptr << std::endl;
 }
 
 const char& CString::operator[](int index) const
@@ -28,6 +28,6 @@ void CString::write_local_pointer()
     void* addr_local_data = static_cast<void*>(m_value->get_data());
     std::cout << "Local object's data's address is " << addr_local_data
                   << std::endl
-                  << "Local object's data's content is " << *(m_value->get_data())
+                  << "Local object's data's content is " << (m_value->get_data())
                   << std::endl;
 }
