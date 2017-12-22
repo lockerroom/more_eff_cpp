@@ -1,9 +1,9 @@
 #include "item.h"
 #include "item19/temporary_obj.h"
-// #include "item30/my_string.h"
-// #include "item30/rc_widget.h"
+// #include "item29/my_string.h"
+// #include "item29/rc_widget.h"
 
-#include "item30/demo/cstring.h"
+#include "item29/demo/cstring.h"
 
 
 void CItem::test_item_9()
