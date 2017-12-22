@@ -4,7 +4,7 @@
 #include "../../../common/common.h"
 #include "crcobject.h"
 
-class CStringValue : public CRCObject
+class CStringValue
 {
 public:
     CStringValue(const char*);

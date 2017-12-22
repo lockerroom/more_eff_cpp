@@ -13,13 +13,13 @@ const char& CString::operator[](int index) const
 
 char& CString::operator[](int index)
 {
-    if (m_value->is_shared())
+    if (m_value.is_shared())
     {
-        m_value->delete_reference();
+        m_value.delete_reference();
         m_value = new CStringValue(m_value->get_data());
     }
 
-    m_value->make_unshareable();
+    m_value.make_unshareable();
     return ((m_value->get_data())[index]);
 }
 
