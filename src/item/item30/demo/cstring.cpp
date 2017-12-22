@@ -23,10 +23,10 @@ char& CString::operator[](int index)
     return ((m_value->get_data())[index]);
 }
 
-void CString::write_local_pointer()
+void CString::write_local_pointer() const 
 {
     // There makes lazy_copy
-    void* addr_local_data = static_cast<void*>(m_value->get_data());
+    const void* addr_local_data = static_cast<const void*>(m_value->get_data());
     std::cout << "Local object's data's address is " << addr_local_data
                   << std::endl
                   << "Local object's data's content is " << (m_value->get_data())

@@ -13,7 +13,7 @@ public:
     const char& operator[](int) const;
     char& operator[](int);
 
-    void write_local_pointer();
+    void write_local_pointer() const;
 
 private:
     CRCIPtr<CStringValue> m_value;

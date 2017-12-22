@@ -63,7 +63,7 @@ const T* CRCIPtr<T>::operator->() const
 template <typename T>
 T* CRCIPtr<T>::operator->()
 {
-    // std::cout << "operator ->" << std::endl;
+    std::cout << "non-const operator ->" << std::endl;
     lazy_copy();
     return m_value;
 }
