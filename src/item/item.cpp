@@ -2,8 +2,9 @@
 #include "item19/temporary_obj.h"
 // #include "item29/my_string.h"
 // #include "item29/rc_widget.h"
-
 #include "item29/demo/cstring.h"
+
+#include "item31/game.h"
 
 
 void CItem::test_item_9()
@@ -57,7 +58,7 @@ void CItem::test_item_24()
     std::cout << (int)(*(int*)&obj2) << std::endl;
 }
 
-void CItem::test_item_30()
+void CItem::test_item_29()
 {
     /*
     // version 1
@@ -93,4 +94,10 @@ void CItem::test_item_30()
     str1.write_local_pointer();
     str2.write_local_pointer();
     str3.write_local_pointer();
+}
+
+void CItem::test_item_31()
+{
+    CGame game;
+    game.start_game();
 }

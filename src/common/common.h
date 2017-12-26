@@ -10,4 +10,6 @@
 #include <list>
 #include <map>
 
+#include <typeinfo>
+
 #endif

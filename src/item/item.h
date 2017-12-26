@@ -11,7 +11,9 @@ public:
     void test_item_20();
     void test_item_24();
 
-    void test_item_30();
+    void test_item_29();
+    
+    void test_item_31();
 };
 
 #endif
