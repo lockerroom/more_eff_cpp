@@ -16,7 +16,13 @@ public:
     T& operator[](int index);
 
 private:
-    T* m_data;
+    void create_local_data(const T*, int);
+    void delete_local_data();
+    void replace_local_data(const T*, int);
+
+private:
+    T* m_value;
+    int m_size;
 };
 
 #endif

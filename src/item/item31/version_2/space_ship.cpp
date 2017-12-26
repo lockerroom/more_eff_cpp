@@ -6,11 +6,23 @@
 
 void CSpaceShip::collide(CGameObject& other_object)
 {
+
     if (&other_object == this)
     {
         return;
     }
 
+    HitFunctionPtr hfp = lookup(other_object);
+    if (hfp)
+    {
+        (this->*hfp)(other_object);
+    }
+    else 
+    {
+        throw CCollusionWithUnknownObject(other_object);
+    }
+
+    /*
     const std::type_info& other_type = typeid(other_object);
     if (typeid(CSpaceShip) == other_type)
     {
@@ -28,4 +40,20 @@ void CSpaceShip::collide(CGameObject& other_object)
     {
         throw CCollusionWithUnknownObject(other_object);
     }
+    */
+}
+
+void CSpaceShip::hitSpaceShip(const CSpaceShip& other_object)
+{
+    std::cout << "One \"Space ship\" collide with another \"Space ship\"." << std::endl;
+}
+
+void CSpaceShip::hitSpaceStation(const CSpaceStation& other_object)
+{
+    std::cout << "One \"Space ship\" collide with one \"Space station\"." << std::endl;
+}
+
+void CSpaceShip::hitAsteroid(const CAsteroid& other_object)
+{
+    std::cout << "One \"Space ship\" collide with one \"Asteroid\"." << std::endl;
 }

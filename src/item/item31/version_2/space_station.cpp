@@ -10,6 +10,7 @@ void CSpaceStation::collide(CGameObject& other_object)
         return;
     }
 
+    /*
     const std::type_info& other_type = typeid(other_object);
     if (typeid(CSpaceShip) == other_type)
     {
@@ -27,4 +28,20 @@ void CSpaceStation::collide(CGameObject& other_object)
     {
         throw CCollusionWithUnknownObject(other_object);
     }
+    */
+}
+
+void CSpaceStation::hitSpaceShip(const CSpaceShip& other_object)
+{
+    std::cout << "One \"Space Station\" collide with another \"Space ship\"." << std::endl;
+}
+
+void CSpaceStation::hitSpaceStation(const CSpaceStation& other_object)
+{
+    std::cout << "One \"Space Station\" collide with one \"Space station\"." << std::endl;
+}
+
+void CSpaceStation::hitAsteroid(const CAsteroid& other_object)
+{
+    std::cout << "One \"Space Station\" collide with one \"Asteroid\"." << std::endl;
 }

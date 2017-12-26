@@ -10,7 +10,11 @@ public:
     virtual void collide(CGameObject&);
     virtual void hitSpaceShip(const CSpaceShip&);
     virtual void hitSpaceStation(const CSpaceStation&);
-    virtual void hitAsteroid(const CAsteroid);
+    virtual void hitAsteroid(const CAsteroid&);
+
+private:
+    typedef void (CSpaceShip::*HitFunctionPtr)(CGameObject&);
+    static HitFunctionPtr lookup(const CGameObject&);
 };
 
 #endif

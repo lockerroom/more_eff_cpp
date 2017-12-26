@@ -10,7 +10,7 @@ public:
     virtual void collide(CGameObject&);
     virtual void hitSpaceShip(const CSpaceShip&);
     virtual void hitSpaceStation(const CSpaceStation&);
-    virtual void hitAsteroid(const CAsteroid);
+    virtual void hitAsteroid(const CAsteroid&);
 };
 
 #endif
