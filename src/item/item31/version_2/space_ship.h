@@ -14,6 +14,7 @@ public:
 
 private:
     typedef void (CSpaceShip::*HitFunctionPtr)(CGameObject&);
+    typedef std::map<std::string, HitFunctionPtr> HitMap;
     static HitFunctionPtr lookup(const CGameObject&);
 };
 

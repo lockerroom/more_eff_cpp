@@ -4,6 +4,23 @@
 #include "space_station.h"
 #include "collision_with_unknown_object.h"
 
+CSpaceShip::HitFunctionPtr
+CSpaceShip::lookup(const CGameObject& object)
+{
+    static HitMap collisionMap;
+    
+
+    HitMap::const_iterator cit = collisionMap.find(typeid(object).name());
+    if (cit == collisionMap.cend())
+    {
+        return 0;
+    }
+    else 
+    {
+        return (*cit).second;
+    }
+}
+
 void CSpaceShip::collide(CGameObject& other_object)
 {
 
