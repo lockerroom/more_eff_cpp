@@ -48,8 +48,7 @@ void CSpaceShip::initializeCollisionMap()
 {
     // Method one, use reinterpert_cast
     // Method two, make all functions' parameter accept CGameObject, and use dynamic_cast
-    std::string space_ship_class(typeid(CSpaceShip).name());
-    m_hit_map[space_ship_class] = &CSpaceShip::hitSpaceShip;
+    m_hit_map[typeid(CSpaceShip).name()] = &CSpaceShip::hitSpaceShip;
     m_hit_map.insert(std::make_pair(std::string(typeid(CSpaceStation).name()), &CSpaceShip::hitSpaceStation));
     m_hit_map.insert(std::make_pair(std::string(typeid(CAsteroid).name()), &CSpaceShip::hitAsteroid));
 }
@@ -57,7 +56,7 @@ void CSpaceShip::initializeCollisionMap()
 CSpaceShip::HitFunctionPtr
 CSpaceShip::lookup(const CGameObject& object)
 {
-    std::cout << typeid(object).name() << std::endl;
+    // std::cout << typeid(object).name() << std::endl;
     HitMap::const_iterator cit = m_hit_map.find(typeid(object).name());
     if (cit == m_hit_map.cend())
     {
