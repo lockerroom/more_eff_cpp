@@ -20,7 +20,7 @@ public:
     virtual void hitAsteroid(const CGameObject&);
 
 private:
-    typedef void (CSpaceShip::*HitFunctionPtr)(CGameObject&);
+    typedef void (CSpaceShip::*HitFunctionPtr)(const CGameObject&);
     typedef std::map<std::string, HitFunctionPtr> HitMap;
 
     HitMap m_hit_map;
