@@ -1,0 +1,1 @@
+Make collide by imitate vtable.
