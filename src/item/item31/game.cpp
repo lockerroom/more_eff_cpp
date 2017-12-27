@@ -1,7 +1,7 @@
 #include "game.h"
-#include "version_1/asteroid.h"
-#include "version_1/space_ship.h"
-#include "version_1/space_station.h"
+#include "version_2/asteroid.h"
+#include "version_2/space_ship.h"
+#include "version_2/space_station.h"
 
 void CGame::start_game()
 {
@@ -12,9 +12,9 @@ void CGame::start_game()
     space_ship.collide(space_station);
     space_ship.collide(asteroid);
 
-    space_station.collide(space_ship);
-    space_station.collide(asteroid);
+    // space_station.collide(space_ship);
+    // space_station.collide(asteroid);
 
-    asteroid.collide(space_ship);
-    asteroid.collide(space_station);
+    // asteroid.collide(space_ship);
+    // asteroid.collide(space_station);
 }

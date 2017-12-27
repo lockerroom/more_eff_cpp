@@ -4,21 +4,9 @@
 #include "space_station.h"
 #include "collision_with_unknown_object.h"
 
-CSpaceShip::HitFunctionPtr
-CSpaceShip::lookup(const CGameObject& object)
+CSpaceShip::CSpaceShip()
 {
-    static HitMap collisionMap;
-    
-
-    HitMap::const_iterator cit = collisionMap.find(typeid(object).name());
-    if (cit == collisionMap.cend())
-    {
-        return 0;
-    }
-    else 
-    {
-        return (*cit).second;
-    }
+    initializeCollisionMap();
 }
 
 void CSpaceShip::collide(CGameObject& other_object)
@@ -38,39 +26,48 @@ void CSpaceShip::collide(CGameObject& other_object)
     {
         throw CCollusionWithUnknownObject(other_object);
     }
-
-    /*
-    const std::type_info& other_type = typeid(other_object);
-    if (typeid(CSpaceShip) == other_type)
-    {
-        std::cout << "One \"Space ship\" collide with another \"Space ship\"." << std::endl;
-    }
-    else if (typeid(CSpaceStation) == other_type)
-    {
-        std::cout << "One \"Space ship\" collide with one \"Space station\"." << std::endl;
-    }
-    else if (typeid(CAsteroid) == other_type)
-    {
-        std::cout << "One \"Space ship\" collide with one \"Asteroid\"." << std::endl;
-    }
-    else
-    {
-        throw CCollusionWithUnknownObject(other_object);
-    }
-    */
 }
 
-void CSpaceShip::hitSpaceShip(const CSpaceShip& other_object)
+void CSpaceShip::hitSpaceShip(const CGameObject& other_object)
 {
     std::cout << "One \"Space ship\" collide with another \"Space ship\"." << std::endl;
 }
 
-void CSpaceShip::hitSpaceStation(const CSpaceStation& other_object)
+void CSpaceShip::hitSpaceStation(const CGameObject& other_object)
 {
+    const CSpaceStation& space_station = dynamic_cast<const CSpaceStation&>(other_object);
     std::cout << "One \"Space ship\" collide with one \"Space station\"." << std::endl;
 }
 
-void CSpaceShip::hitAsteroid(const CAsteroid& other_object)
+void CSpaceShip::hitAsteroid(const CGameObject& other_object)
 {
     std::cout << "One \"Space ship\" collide with one \"Asteroid\"." << std::endl;
+}
+
+void CSpaceShip::initializeCollisionMap()
+{
+    // Method one, use reinterpert_cast
+    // Method two, make all functions' parameter accept CGameObject, and use dynamic_cast
+    std::string space_ship_class(typeid(CSpaceShip).name());
+    m_hit_map[space_ship_class] = &CSpaceShip::hitSpaceShip;
+    
+    // m_hit_map.insert(std::make_pair(std::string(typeid(CSpaceStation).name()), &CSpaceShip::hitSpaceStation));
+    // m_hit_map.insert(std::make_pair(std::string(typeid(CAsteroid).name()), &CSpaceShip::hitAsteroid));
+}
+
+CSpaceShip::HitFunctionPtr
+CSpaceShip::lookup(const CGameObject& object)
+{
+    static HitMap collisionMap;
+    
+
+    HitMap::const_iterator cit = collisionMap.find(typeid(object).name());
+    if (cit == collisionMap.cend())
+    {
+        return 0;
+    }
+    else 
+    {
+        return (*cit).second;
+    }
 }

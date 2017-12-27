@@ -4,6 +4,10 @@
 #include "../../../common/common.h"
 #include "game_object.h"
 
+class CSpaceShip;
+class CSpaceStation;
+class CAsteroid;
+
 class CSpaceStation : public CGameObject
 {
 public:
