@@ -1,4 +1,7 @@
 #include "collision_map.h"
+#include "asteroid.h"
+#include "space_ship.h"
+#include "space_station.h"
 
 CCollisionMap::CCollisionMap m_instance;
 
@@ -15,25 +18,6 @@ CCollisionMap::CCollisionMap(const CCollisionMap& rhs)
 CCollisionMap& CCollisionMap::instance()
 {
     return m_instance;
-}
-
-void CCollisionMap::add_entry(const CGameObject& obj1, const CGameObject& obj2, HitFunctionPtr phf, bool symmetric/* = true */)
-{
-    add_entry(typeid(obj1).name(),
-                    typeid(obj2).name(),
-                    phf,
-                    symmetric
-                    );
-}
-
-void CCollisionMap::delete_entry(const CGameObject& obj1, const CGameObject& obj2)
-{
-    delete_entry(typeid(obj1).name(), typeid(obj2).name());
-}
-
-HitFunctionPtr CCollisionMap::lookup(const CGameObject& obj1, const CGameObject& obj2) const
-{
-    return lookup(typeid(obj1).name(), typeid(obj2).name());
 }
 
 void CCollisionMap::add_entry(const std::string& type1, const std::string& type2, HitFunctionPtr phf, bool symmetric/* = true */)
@@ -53,14 +37,25 @@ void CCollisionMap::delete_entry(const std::string& type1, const std::string& ty
     }
 }
 
+HitFunctionPtr CCollisionMap::lookup(const CGameObject& obj1, const CGameObject& obj2) const
+{
+    return lookup(typeid(obj1).name(), typeid(obj2).name());
+}
+
 HitFunctionPtr CCollisionMap::lookup(const std::string& obj1_type, const std::string& obj2_type) const
 {
-    KeyType key = make_key(obj1_type, obj2_type);
+    KeyType key1 = make_key(obj1_type, obj2_type);
+    KeyType key2 = make_key(obj2_type, obj1_type);
 
-    HitMap::const_iterator cit = m_hit_map.find(key);
-    if (cit != m_hit_map.end())
+    HitMap::const_iterator cit = m_hit_map.find(key1);
+    HitMap::const_iterator cit2 = m_hit_map.find(key2);
+    if (cit != m_hit_map.cend())
     {
         return (*cit).second;
+    }
+    else if (cit2 != m_hit_map.cend())
+    {
+        return (*cit2).second;
     }
     else
     {
