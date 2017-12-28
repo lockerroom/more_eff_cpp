@@ -4,6 +4,7 @@
 #include "asteroid.h"
 #include "space_ship.h"
 #include "space_station.h"
+#include "unknown_collision.h"
 
 namespace
 {
@@ -54,6 +55,7 @@ namespace
 
     typedef void (*HitFunctionPtr)(const CGameObject&, const CGameObject&);
     typedef std::map<std::pair<std::string, std::string>, HitFunctionPtr> HitMap;
+
     std::pair<std::string, std::string> make_string_pair(const char* str1, const char* str2)
     {
         return std::pair<std::string, std::string>(str1, str2);
@@ -61,27 +63,29 @@ namespace
     
     HitMap* InitializeHitMap()
     {
-        HitMap* map = new HitMap;
+        HitMap* mmp = new HitMap();
         std::pair<std::string, std::string> key1 = make_string_pair(typeid(CSpaceShip).name(), typeid(CSpaceStation).name());
-        (*map)[key1] = &ship_station;
+        (*mmp)[key1] = &ship_station;
         key1 = make_string_pair(typeid(CSpaceShip).name(), typeid(CAsteroid).name());
-        (*map)[key1] = &ship_asteroid;
+        (*mmp)[key1] = &ship_asteroid;
         key1 = make_string_pair(typeid(CSpaceShip).name(), typeid(CSpaceShip).name());
-        (*map)[key1] = &ship_ship;
+        (*mmp)[key1] = &ship_ship;
 
         key1 = make_string_pair(typeid(CSpaceStation).name(), typeid(CSpaceShip).name());
-        (*map)[key1] = &station_ship;
+        (*mmp)[key1] = &station_ship;
         key1 = make_string_pair(typeid(CSpaceStation).name(), typeid(CAsteroid).name());
-        (*map)[key1] = &station_asteroid;
+        (*mmp)[key1] = &station_asteroid;
         key1 = make_string_pair(typeid(CSpaceStation).name(), typeid(CSpaceStation).name());
-        (*map)[key1] = &station_station;
+        (*mmp)[key1] = &station_station;
 
         key1 = make_string_pair(typeid(CAsteroid).name(), typeid(CSpaceShip).name());
-        (*map)[key1] = &asteroid_ship;
+        (*mmp)[key1] = &asteroid_ship;
         key1 = make_string_pair(typeid(CAsteroid).name(), typeid(CSpaceStation).name());
-        (*map)[key1] = &asteroid_station;
+        (*mmp)[key1] = &asteroid_station;
         key1 = make_string_pair(typeid(CAsteroid).name(), typeid(CAsteroid).name());
-        (*map)[key1] = &asteroid_asteroid;
+        (*mmp)[key1] = &asteroid_asteroid;
+
+        return mmp;
     }
 
     HitFunctionPtr lookup(const CGameObject& obj1, const CGameObject& obj2)
@@ -89,12 +93,12 @@ namespace
         if (&obj1 == &obj2)
             return 0;
         
-
-        HitMap* tmpMap = initializeCollisionMap();
+        HitMap* tmpMap = InitializeHitMap();
         if (!tmpMap)
             return 0;
 
         std::pair<std::string, std::string> key = make_string_pair(typeid(obj1).name(), typeid(obj2).name());
+
         HitMap::const_iterator cit = (*tmpMap).find(key);
         if (cit != (*tmpMap).cend())
         {
@@ -108,6 +112,23 @@ namespace
             tmpMap = nullptr;
             return 0;
         }
+    }
+}
+
+void process_collision(const CGameObject& obj1, const CGameObject& obj2)
+{
+    std::cout << "Debug begin" << std::endl;
+        std::cout << typeid(obj1).name() << std::endl;
+        std::cout << typeid(obj2).name() << std::endl;
+    HitFunctionPtr phf = lookup(obj1, obj2);
+
+    if (phf)
+    {
+        phf(obj1, obj2);
+    }
+    else
+    {
+        throw CUnknownCollision(obj1, obj2); 
     }
 }
 

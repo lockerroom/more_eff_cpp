@@ -8,6 +8,10 @@ class CSpaceShip : public CGameObject
 {
 public:
     CSpaceShip();
+/*
+public:
+    virtual void collide(CGameObject&);
+    */
 };
 
 #endif

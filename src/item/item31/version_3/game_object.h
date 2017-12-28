@@ -6,7 +6,12 @@
 class CGameObject
 {
 public:
+    virtual ~CGameObject() = 0;
+
+/*
+public:
     virtual void collide(CGameObject&) = 0;
+    */
 };
 
 #endif

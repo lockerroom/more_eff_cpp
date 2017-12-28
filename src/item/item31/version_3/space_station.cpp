@@ -4,3 +4,10 @@ CSpaceStation::CSpaceStation()
 {
     
 }
+
+/*
+void CSpaceStation::collide(CGameObject& rhs)
+{
+
+}
+*/

@@ -8,6 +8,11 @@ class CAsteroid : public CGameObject
 {
 public:
     CAsteroid();
+
+/*
+public:
+    virtual void collide(CGameObject&);
+    */
 };
 
 #endif

@@ -4,3 +4,10 @@ CAsteroid::CAsteroid()
 {
 
 }
+
+/*
+void CAsteroid::collide(CGameObject& rhs)
+{
+
+}
+*/

@@ -4,3 +4,10 @@ CSpaceShip::CSpaceShip()
 {
     
 }
+
+/*
+void CSpaceShip::collide(CGameObject& rhs)
+{
+
+}
+*/
