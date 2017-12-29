@@ -2,7 +2,7 @@
 // #include "version_2/asteroid.h"
 // #include "version_2/space_ship.h"
 // #include "version_2/space_station.h"
-#include "version_3/collision_process.h"
+#include "version_4/collision_process.h"
 
 void CGame::start_game()
 {
@@ -11,6 +11,7 @@ void CGame::start_game()
     CAsteroid asteroid;
 
     std::cout << typeid(space_ship).name() << std::endl;
+    init_collision_map();
     process_collision(space_ship, space_station);
 
     // space_station.collide(space_ship);

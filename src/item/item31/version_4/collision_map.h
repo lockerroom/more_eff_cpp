@@ -21,12 +21,12 @@ public:
 
     void add_entry(const std::string& type1, const std::string& type2, HitFunctionPtr phf, bool symmetric = true);
     void delete_entry(const std::string& type1, const std::string& type2);
-    HitFunctionPtr lookup(const CGameObject&, const CGameObject&) const ;
+    CCollisionMap::HitFunctionPtr lookup(const CGameObject&, const CGameObject&);
     
 private:
-    HitFunctionPtr lookup(const std::string&, const std::string&) const ;
+    CCollisionMap::HitFunctionPtr lookup(const std::string&, const std::string&) ;
 
-    KeyType make_key(const std::string&, const std::string&);
+    CCollisionMap::KeyType make_key(const std::string&, const std::string&);
 
 private:
     static CCollisionMap m_instance;

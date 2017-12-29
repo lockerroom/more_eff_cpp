@@ -39,6 +39,7 @@ namespace
         std::cout << "One asteroid collide with a space station" << std::endl;
     }
 
+    /*
     void asteroid_ship(const CGameObject& asteroid, const CGameObject& space_ship)
     {
         ship_asteroid(space_ship, asteroid);
@@ -53,22 +54,23 @@ namespace
     {
         asteroid_station(asteroid, space_station);
     }
-}
+    */
 
-void init_collision_map()
-{
-    CCollisionMap::instance().add_entry(typeid(CSpaceShip).name(),
+    void init_collision_map()
+    {
+        CCollisionMap::instance().add_entry(typeid(CSpaceShip).name(),
                                         typeid(CSpaceStation).name(),
                                         &ship_station
                                         );
-    CCollisionMap::instance().add_entry(typeid(CSpaceShip).name(),
+        CCollisionMap::instance().add_entry(typeid(CSpaceShip).name(),
                                         typeid(CAsteroid).name(),
                                         &ship_asteroid
                                         );
-    CCollisionMap::instance().add_entry(typeid(CSpaceStation).name(),
+        CCollisionMap::instance().add_entry(typeid(CSpaceStation).name(),
                                         typeid(CAsteroid).name(),
-                                        &station_asteroid
+                                        &asteroid_station
                                         );
+    }
 }
 
 void process_collision(const CGameObject& obj1, const CGameObject& obj2)

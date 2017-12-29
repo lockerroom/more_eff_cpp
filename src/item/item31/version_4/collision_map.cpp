@@ -3,7 +3,7 @@
 #include "space_ship.h"
 #include "space_station.h"
 
-CCollisionMap::CCollisionMap m_instance;
+CCollisionMap CCollisionMap::m_instance;
 
 CCollisionMap::CCollisionMap()
 {
@@ -37,12 +37,14 @@ void CCollisionMap::delete_entry(const std::string& type1, const std::string& ty
     }
 }
 
-HitFunctionPtr CCollisionMap::lookup(const CGameObject& obj1, const CGameObject& obj2) const
+CCollisionMap::HitFunctionPtr
+CCollisionMap::lookup(const CGameObject& obj1, const CGameObject& obj2)
 {
     return lookup(typeid(obj1).name(), typeid(obj2).name());
 }
 
-HitFunctionPtr CCollisionMap::lookup(const std::string& obj1_type, const std::string& obj2_type) const
+CCollisionMap::HitFunctionPtr
+CCollisionMap::lookup(const std::string& obj1_type, const std::string& obj2_type)
 {
     KeyType key1 = make_key(obj1_type, obj2_type);
     KeyType key2 = make_key(obj2_type, obj1_type);
@@ -63,7 +65,7 @@ HitFunctionPtr CCollisionMap::lookup(const std::string& obj1_type, const std::st
     }
 }
 
-KeyType CCollisionMap::make_key(const std::string& str1, const std::string& str2)
+CCollisionMap::KeyType CCollisionMap::make_key(const std::string& str1, const std::string& str2)
 {
     return std::make_pair(str1, str2);
 }
